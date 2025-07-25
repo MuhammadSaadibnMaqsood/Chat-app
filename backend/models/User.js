@@ -1,23 +1,49 @@
 import mongoose from "mongoose";
+import bcrypt from "bcrypt";
 
-
-const userSchema = mongoose.Schema({
-    fullName:{typeof: String,required:true},
-    email:{typeof: String,required:true,unique: true},
-    password: {typeof:String,required:true,minLength: 6},
-    bio:{typeof: String,default:''},
-    profilePic:{typeof: String,default:''},
-    nativeLanguage: {typeof:String,default:''},
-    learningLanguage: {typeof:String,default:''},
-    location: {typeof:String,default:''},
-    isOnBoarded: {typeof:Boolean,default:false},
-    friends:[{
-        typeof:mongoose.Schema.Types.ObjectId,
+// Define schema
+const userSchema = mongoose.Schema(
+  {
+    fullName: { type: String, required: true },
+    email: { type: String, required: true, unique: true },
+    password: { type: String, required: true, minLength: 6 },
+    bio: { type: String, default: '' },
+    profilePic: { type: String, default: '' },
+    nativeLanguage: { type: String, default: '' },
+    learningLanguage: { type: String, default: '' },
+    location: { type: String, default: '' },
+    isOnBoarded: { type: Boolean, default: false },
+    friends: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
-    }]
-},{timeStamps: true});
+      }
+    ]
+  },
+  {
+    timestamps: true
+  }
+);
 
+// PRE HOOK FOR HASHING PASSWORD
+userSchema.pre("save", async function (next) {
+  if (!this.isModified("password")) return next();
 
-const User = mongoose.model('User',userSchema);
+  try {
+    const salt = await bcrypt.genSalt(10);
+    this.password = await bcrypt.hash(this.password, salt);
+    next();
+  } catch (error) {
+    next(error);
+  }
+});
 
-export default User
+userSchema.methods.matchPassword = async function (enterPassword) {
+  const isPasswordCorrect  = await bcrypt.compare(enterPassword,this.password);
+  return isPasswordCorrect;
+}
+
+// Create model after defining schema and hooks
+const User = mongoose.model("User", userSchema);
+
+export default User;

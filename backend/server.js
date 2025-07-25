@@ -3,6 +3,8 @@ import cors from 'cors'
 import dotenv from 'dotenv'
 import authRouters from './routes/auth.Routes.js';
 import connectdb from './config/db.js';
+import cookieParser from 'cookie-parser';
+import userRouter from './routes/user.Routes.js';
 
 
 dotenv.config();
@@ -11,8 +13,13 @@ const port = process.env.PORT || 5000
 
 app.use(cors()); //enable-cross-origin
 app.use(express.json());
+app.use(cookieParser());
+
 
 app.use('/api/auth',authRouters);
+app.use('/api/user',userRouter);
+
+
 app.listen(port,()=>{
     console.log(`SERVER RUNNING ON PORT: ${port}`);
     //connect-db
