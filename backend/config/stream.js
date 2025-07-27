@@ -15,4 +15,12 @@ export const upsertStreamUser = async (userData) => {
   }
 };
 
-export const generateStreamToken = async (userId) => {};
+export const generateStreamToken = async (userId) => {
+  try {
+    const userIdStr = userId.toString();
+    return streamClient.createToken(userIdStr);
+  } catch (error) {
+    console.log("error in generateStreamToken config file ", error);
+    res.status(500).json({ message: "internal server error" });
+  }
+};
