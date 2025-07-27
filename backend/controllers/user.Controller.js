@@ -37,3 +37,28 @@ export async function getMyFriends(req, res) {
     res.status(500).json({ message: "internal server error" });
   }
 }
+export async function sendFriendRequest(req, res) {
+    try {
+        const myId = req.user._id;
+
+        const {id:recipientId} = req.params
+
+        //prevent to send req yourself
+        if (myId === recipientId) {
+            return res.status(401).json({message: 'You cant send request to yourself'});
+        }
+
+        const recipient = await User.find(recipientId);
+
+        if (!recipient) {
+            return res.status(404).json({message: 'User Not Existed'});
+        }
+
+        if (recipient.friends.includes(myId)) {
+            return res.status(401).json({message: 'You Both are already friends'});
+        }
+
+    } catch (error) {
+        
+    }
+}
