@@ -12,7 +12,10 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 5000
 
-app.use(cors()); //enable-cross-origin
+app.use(cors({
+    origin: 'http://localhost:5173',
+    credentials: true //accept cokie frontend
+})); //enable-cross-origin
 app.use(express.json());
 app.use(cookieParser());
 
@@ -21,6 +24,9 @@ app.use('/api/auth',authRouters);
 app.use('/api/user',userRouter);
 app.use('/api/chat',chatRoutes);
 
+app.use('/', (req,res)=>{
+    res.send('Api is working!')
+})
 
 app.listen(port,()=>{
     console.log(`SERVER RUNNING ON PORT: ${port}`);
