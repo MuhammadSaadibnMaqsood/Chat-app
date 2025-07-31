@@ -12,7 +12,6 @@ import useAuthUser from "./hooks/useAuthUser";
 import PageLoader from "./components/PageLoader";
 
 function App() {
-  //tanstackQuery
 
   const { isLoading, authUser } = useAuthUser();
 
@@ -20,7 +19,6 @@ function App() {
 
   const isAuthenticated = Boolean(authUser);
   const isBoarded = authUser?.isOnBoarded;
-  // console.log(isBoarded);
 
   return (
     <>
@@ -38,7 +36,7 @@ function App() {
           />
           <Route
             path="/login"
-            element={!isAuthenticated ? <LoginPage /> : <Navigate to="/" />}
+            element={!isAuthenticated ? <LoginPage /> : isBoarded?  <Navigate to="/" /> : <Navigate to="/onboarding" />  }
           />
           <Route
             path="/signup"
