@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { ShipWheel } from "lucide-react";
 import { Link } from "react-router";
-import { useMutation, useQueryClient} from '@tanstack/react-query'
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { signup } from "../lib/api";
+import PageLoader from "../components/PageLoader";
 const SignUpPage = () => {
   const [signupData, setSignupData] = useState({
     fullName: "",
@@ -12,16 +13,21 @@ const SignUpPage = () => {
 
   const queryClient = useQueryClient();
 
-  const {mutate:signupMuatation,isPending, error} = useMutation({
+  const {
+    mutate: signupMuatation,
+    isPending,
+    error,
+  } = useMutation({
     mutationFn: signup,
-    onSuccess: ()=> queryClient.invalidateQueries({queryKey: ['authUser']})
-  })
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["authUser"] }),
+  });
 
   const handleSignUp = (e) => {
     e.preventDefault();
-    signupMuatation (signupData);
+    signupMuatation(signupData);
   };
 
+  if (isPending) return <PageLoader />;
   return (
     <div
       data-theme="forest"
@@ -124,7 +130,9 @@ const SignUpPage = () => {
             </div>
 
             {/* SUBMIT */}
-            <button className="btn btn-primary w-full">{isPending? 'Signingup....' : 'Create Account'}</button>
+            <button className="btn btn-primary w-full">
+              {isPending ? "Signingup...." : "Create Account"}
+            </button>
 
             {/* SWITCH TO LOGIN */}
             <p className="text-sm text-center">
