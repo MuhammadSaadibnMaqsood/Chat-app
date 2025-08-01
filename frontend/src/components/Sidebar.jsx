@@ -8,8 +8,6 @@ const Sidebar = () => {
   const location = useLocation();
   const pathName = location.pathname;
 
-  console.log(location);
-  console.log(pathName);
 
   return (
     <aside className="w-64 bg-base-200 border-r border-base-300 hidden lg:flex flex-col h-screen sticky top-0">
@@ -51,6 +49,28 @@ const Sidebar = () => {
           <span>Notifications</span>
         </Link>
       </nav>
+
+      {/* USER PROFILE  */}
+
+      <div className="p-4 border-t border-base-300 mt-auto">
+        <div className="flex items-center gap-3">
+          <div className="avatar">
+            <div className="w-10 rounded-full">
+              <img src={authUser?.profilePic} alt="Profile-pic" />
+            </div>
+          </div>
+
+          <div className="flex-1">
+            <p className="font-semibold text-sm">{authUser?.fullName}</p>
+            <p className="text-xs text-success flex items-center gap-1">
+              <span className="size-2 rounded-full bg-success inline-block">
+              
+              </span>
+                Online
+            </p>
+          </div>
+        </div>
+      </div>
     </aside>
   );
 };
