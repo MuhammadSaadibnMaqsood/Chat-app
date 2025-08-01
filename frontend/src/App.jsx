@@ -10,9 +10,9 @@ import SignUpPage from "./pages/SignUpPage";
 import toast, { Toaster } from "react-hot-toast";
 import useAuthUser from "./hooks/useAuthUser";
 import PageLoader from "./components/PageLoader";
+import Layout from "./components/Layout";
 
 function App() {
-
   const { isLoading, authUser } = useAuthUser();
 
   if (isLoading) return <PageLoader />;
@@ -28,7 +28,9 @@ function App() {
             path="/"
             element={
               isAuthenticated && isBoarded ? (
-                <HomePage />
+                <Layout showSidebar= {true}>
+                  <HomePage />
+                </Layout>
               ) : (
                 <Navigate to={!isAuthenticated ? "/login" : "/onboarding"} />
               )
@@ -36,7 +38,15 @@ function App() {
           />
           <Route
             path="/login"
-            element={!isAuthenticated ? <LoginPage /> : isBoarded?  <Navigate to="/" /> : <Navigate to="/onboarding" />  }
+            element={
+              !isAuthenticated ? (
+                <LoginPage />
+              ) : isBoarded ? (
+                <Navigate to="/" />
+              ) : (
+                <Navigate to="/onboarding" />
+              )
+            }
           />
           <Route
             path="/signup"
