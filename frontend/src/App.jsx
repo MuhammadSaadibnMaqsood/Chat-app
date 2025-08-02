@@ -11,10 +11,10 @@ import toast, { Toaster } from "react-hot-toast";
 import useAuthUser from "./hooks/useAuthUser";
 import PageLoader from "./components/PageLoader";
 import Layout from "./components/Layout";
-
+import useThemeStore from "./store/useThemeStore";
 function App() {
   const { isLoading, authUser } = useAuthUser();
-
+  const { theme } = useThemeStore();
   if (isLoading) return <PageLoader />;
 
   const isAuthenticated = Boolean(authUser);
@@ -22,13 +22,13 @@ function App() {
 
   return (
     <>
-      <div data-theme="forest">
+      <div data-theme={theme}>
         <Routes>
           <Route
             path="/"
             element={
               isAuthenticated && isBoarded ? (
-                <Layout showSidebar= {true}>
+                <Layout showSidebar={true}>
                   <HomePage />
                 </Layout>
               ) : (

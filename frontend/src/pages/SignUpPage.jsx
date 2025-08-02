@@ -10,18 +10,7 @@ const SignUpPage = () => {
     password: "",
   });
 
-  // const queryClient = useQueryClient();
-
-  // const {
-  //   mutate: signupMuatation,
-  //   isPending,
-  //   error,
-  // } = useMutation({
-  //   mutationFn: signup,
-  //   onSuccess: () => queryClient.invalidateQueries({ queryKey: ["authUser"] }),
-  // });
-
-  const {mutate: signupMuatation,isPending,error } = useSignupMutation();
+  const { mutate: signupMuatation, isPending, error } = useSignupMutation();
 
   const handleSignUp = (e) => {
     e.preventDefault();
