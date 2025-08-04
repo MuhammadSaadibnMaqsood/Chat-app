@@ -77,7 +77,7 @@ function App() {
             element={isAuthenticated ? <CallPage /> : <Navigate to="/login" />}
           />
           <Route
-            path="/chats"
+            path="/chats/:id"
             element={isAuthenticated ? <ChatPage /> : <Navigate to="/login" />}
           />
         </Routes>
