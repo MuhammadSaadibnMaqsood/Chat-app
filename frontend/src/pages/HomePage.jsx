@@ -41,7 +41,7 @@ const HomePage = () => {
     const ids = new Set();
     if (outgoingFriendsReqs && outgoingFriendsReqs.length > 0) {
       outgoingFriendsReqs.forEach((req) => {
-        ids.add(req.id);
+        ids.add(req.recipient._id);
       });
     }
     setOutgoingReqIds(ids);
@@ -130,11 +130,11 @@ const HomePage = () => {
                       {/* LANGUAGE WITH FLAGS  */}
 
                       <div className="flex flex-wrap gap-1.5">
-                        <span className="badge badge-secondary">
+                        <span className="badge badge-secondary text-xs">
                           {getLanguageFlag(recommended.nativeLanguage)} Native:{" "}
                           {capitialize(recommended.nativeLanguage)}
                         </span>
-                        <span className="badge badge-secondary">
+                        <span className="badge badge-secondary text-xs">
                           {getLanguageFlag(recommended.learningLanguage)}{" "}
                           Learning: {capitialize(recommended.learningLanguage)}
                         </span>
