@@ -86,7 +86,17 @@ function App() {
           />
           <Route
             path="/chats/:id"
-            element={isAuthenticated ? <ChatPage /> : <Navigate to="/login" />}
+            element={
+              isAuthenticated && isBoarded ? (
+                <Layout showSidebar={false}>
+                  <ChatPage />
+                </Layout>
+              ) : !isAuthenticated ? (
+                <Navigate to="/login" />
+              ) : (
+                <Navigate to="/onboarding" />
+              )
+            }
           />
         </Routes>
         <Toaster />

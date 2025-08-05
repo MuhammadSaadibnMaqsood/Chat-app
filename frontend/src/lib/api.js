@@ -54,7 +54,15 @@ export const getFriendRequest = async () => {
   return response.data;
 };
 // ACCEPT FRINED REQUEST 
-export const acceptFriendReq = async (userId) => {
-  const response = await axiosInstance.get(`/friend-request/${userId}/accept`);
-  return response.data;
+export const acceptFriendReq = async (requestId) => {
+  try {
+   
+    const response = await axiosInstance.put(`/user/friend-request/${requestId}/accept`);
+    
+    return response.data;
+    
+  } catch (error) {
+    console.log(error);
+    
+  }
 };

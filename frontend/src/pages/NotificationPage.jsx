@@ -5,6 +5,7 @@ import { toast } from "react-hot-toast";
 import { BellIcon, ClockIcon, MessageSquareIcon } from "lucide-react";
 
 import { UserCheckIcon } from "lucide-react";
+import NoNotificationFound from "../components/NoNotificationFound";
 const NotificationPage = () => {
   const querClient = useQueryClient();
 
@@ -82,7 +83,7 @@ const NotificationPage = () => {
                           <button
                             className="btn btn-primary btn-sm "
                             onClick={() =>
-                              acceptFriendRequest(request.recipient._id)
+                              acceptFriendRequest(request._id)
                             }
                             disabled={isLoading}
                           >
@@ -143,6 +144,10 @@ const NotificationPage = () => {
               ))}
             </div>
           </section>
+        )}
+
+        {incomingReq.length == 0 && acceptReq.length == 0  && (
+          <NoNotificationFound/>
         )}
       </div>
     </div>

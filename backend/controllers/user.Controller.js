@@ -61,9 +61,7 @@ export async function sendFriendRequest(req, res) {
 
     // Already friends?
     if (recipient.friends.includes(myId)) {
-      return res
-        .status(401)
-        .json({ message: "You both are already friends." });
+      return res.status(401).json({ message: "You both are already friends." });
     }
 
     // Existing request check
@@ -95,8 +93,11 @@ export async function sendFriendRequest(req, res) {
 export async function acceptFriendReq(req, res) {
   try {
     const { id: requestId } = req.params;
+    console.log("Request ID from params:", requestId);
 
     const friendReq = await FriendRequest.findById(requestId);
+    const allRequests = await FriendRequest.find();
+    console.log("All friend requests:", allRequests);
 
     if (!friendReq) {
       return res.status(401).json({ message: "Friend request does not exist" });
