@@ -38,14 +38,23 @@ const HomePage = () => {
   });
 
   useEffect(() => {
-    const ids = new Set();
+    const newIds = new Set();
+
     if (outgoingFriendsReqs && outgoingFriendsReqs.length > 0) {
       outgoingFriendsReqs.forEach((req) => {
-        ids.add(req.recipient._id);
+        newIds.add(req.recipient._id);
       });
     }
-    setOutgoingReqIds(ids);
-  }, [outgoingFriendsReqs]);
+
+    // Only update state if the sets are different
+    const areEqual =
+      newIds.size === outgoingReqIds.size &&
+      [...newIds].every((id) => outgoingReqIds.has(id));
+
+    if (!areEqual) {
+      setOutgoingReqIds(newIds);
+    }
+  }, [outgoingFriendsReqs]); // ✅
 
   return (
     <div className="p-4 sm:p-6 lg:p-8">
@@ -150,7 +159,6 @@ const HomePage = () => {
                         onClick={() => sendFriendReq(recommended._id)}
                         disabled={hasReqSent || isPending}
                       >
-                        
                         {hasReqSent ? (
                           <>
                             <CheckCircleIcon className="size-4 mr-2" />

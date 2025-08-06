@@ -1,20 +1,20 @@
 import axiosInstance from "./axios";
-// SIGN UP 
+// SIGN UP
 export const signup = async (signupData) => {
   const response = await axiosInstance.post("/auth/signup", signupData);
   return response.data;
 };
-// LOGIN 
+// LOGIN
 export const login = async (loginData) => {
   const response = await axiosInstance.post("/auth/login", loginData);
   return response.data;
 };
-// LOGOUT 
+// LOGOUT
 export const logout = async () => {
   const response = await axiosInstance.post("/auth/logout");
   return response.data;
 };
-// GET USER 
+// GET USER
 export const getAuthUser = async () => {
   try {
     const res = await axiosInstance.get("/auth/me");
@@ -23,51 +23,51 @@ export const getAuthUser = async () => {
     return null;
   }
 };
-// COMPLETE ONBOADING 
+// COMPLETE ONBOADING
 export const completeOnboarding = async (fromData) => {
   const res = await axiosInstance.post("/auth/onboarding", fromData);
   return res.data;
 };
-// GET FRIENDS 
+// GET FRIENDS
 export const getFriends = async () => {
   const response = await axiosInstance.get("/user/friends");
   return response.data;
 };
-// GET RECOMMENDED USERS 
+// GET RECOMMENDED USERS
 export const getRecommendedUser = async () => {
   const response = await axiosInstance.get("/user/");
   return response.data;
 };
-// GET OUTGOINGREQUESTS 
+// GET OUTGOINGREQUESTS
 export const getOutgoingFriendsReqs = async () => {
   const response = await axiosInstance.get("/user/outgoing-friend-requests");
   return response.data;
 };
-// SEND REQUEST 
+// SEND REQUEST
 export const sendReq = async (userId) => {
   const response = await axiosInstance.post(`/user/friend-request/${userId}`);
   return response.data;
 };
-// GET FRINED REQS 
+// GET FRINED REQS
 export const getFriendRequest = async () => {
   const response = await axiosInstance.get(`/user/friend-requests`);
   return response.data;
 };
-// ACCEPT FRINED REQUEST 
+// ACCEPT FRINED REQUEST
 export const acceptFriendReq = async (requestId) => {
   try {
-   
-    const response = await axiosInstance.put(`/user/friend-request/${requestId}/accept`);
-    
+    const response = await axiosInstance.put(
+      `/user/friend-request/${requestId}/accept`
+    );
+
     return response.data;
-    
   } catch (error) {
     console.log(error);
-    
   }
 };
-// GET STREAM TOKEN 
+// GET STREAM TOKEN
 export const getStreamToken = async () => {
-  const response = await axiosInstance.get(`/chat/token`);
+  const response = await axiosInstance.get("/chat/token");
+
   return response.data;
 };

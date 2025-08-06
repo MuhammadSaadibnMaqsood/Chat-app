@@ -81,8 +81,16 @@ function App() {
             }
           />
           <Route
-            path="/calls"
-            element={isAuthenticated ? <CallPage /> : <Navigate to="/login" />}
+            path="/call/:id"
+            element={
+              isAuthenticated && isBoarded ? (
+                <CallPage />
+              ) : !isAuthenticated ? (
+                <Navigate to="/login" />
+              ) : (
+                <Navigate to="/onboarding" />
+              )
+            }
           />
           <Route
             path="/chats/:id"
