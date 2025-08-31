@@ -12,6 +12,7 @@ import useAuthUser from "./hooks/useAuthUser";
 import PageLoader from "./components/PageLoader";
 import Layout from "./components/Layout";
 import useThemeStore from "./store/useThemeStore";
+import FriendsPage from "./pages/FriendsPage";
 function App() {
   const { isLoading, authUser } = useAuthUser();
   const { theme } = useThemeStore();
@@ -98,6 +99,20 @@ function App() {
               isAuthenticated && isBoarded ? (
                 <Layout showSidebar={false}>
                   <ChatPage />
+                </Layout>
+              ) : !isAuthenticated ? (
+                <Navigate to="/login" />
+              ) : (
+                <Navigate to="/onboarding" />
+              )
+            }
+          />
+          <Route
+            path="/friends"
+            element={
+              isAuthenticated && isBoarded ? (
+                <Layout showSidebar={true}>
+                  <FriendsPage />
                 </Layout>
               ) : !isAuthenticated ? (
                 <Navigate to="/login" />

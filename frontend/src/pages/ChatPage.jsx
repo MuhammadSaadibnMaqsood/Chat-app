@@ -16,6 +16,7 @@ import {
 import { StreamChat } from "stream-chat";
 import ChatLoader from "../components/ChatLoader";
 import CallButton from "../components/CallButton";
+import useToken from "../hooks/useToken";
 
 const VITE_STREAM_API_KEY = import.meta.env.VITE_STREAM_API_KEY;
 
@@ -28,12 +29,8 @@ const ChatPage = () => {
 
   const { authUser } = useAuthUser();
 
-  const { data: token } = useQuery({
-    queryKey: ["streamToken"],
-    queryFn: getStreamToken,
-    enabled: !!authUser,
-  });
 
+  const {token} = useToken();
   useEffect(() => {
     const initChat = async () => {
       if (!token?.token || !authUser) return;
@@ -82,7 +79,7 @@ const ChatPage = () => {
 
   if (loading || !chatClient || !channel) return <ChatLoader />;
   return (
-    <div className="h-[93vh] ">
+    <div className="h-[94vh] ">
       <Chat client={chatClient}>
         <Channel channel={channel}>
           <div className="w-full relative">
