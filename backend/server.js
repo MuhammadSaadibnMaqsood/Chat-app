@@ -13,9 +13,10 @@ const app = express();
 const port = process.env.PORT || 5000
 
 app.use(cors({
-    origin: 'https://chat-app-frontend-delta-five.vercel.app',
-    credentials: true //accept cokie frontend
-})); //enable-cross-origin
+    origin: 'http://localhost:5173',
+    credentials: true //accept frontend send cookie
+})); 
+//enable-cross-origin
 app.use(express.json());
 app.use(cookieParser());
 
