@@ -16,9 +16,7 @@ It supports instant messaging, video calls, friend requests, and delivers a clea
    - [Frontend Setup](#frontend-setup)  
 5. [Environment Variables](#environment-variables)  
 6. [Usage](#usage)  
-7. [Contribution](#contribution)  
-8. [License](#license)  
-9. [Contact](#contact)
+7. [Contact](#contact)
 
 ---
 
